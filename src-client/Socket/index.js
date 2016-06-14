@@ -23,7 +23,7 @@ export default class Socket extends EventEmitter {
     _bindComponentEvents() {
         this.on('close', this._reconnect.bind(this));
         this.on('open', this._connected.bind(this));
-        this.on('error', () => { console.log('error!'); /* EventEmitter requires an error handler */ });
+        this.on('error', () => { /* EventEmitter requires an error handler */ });
 
         return this;
     }
