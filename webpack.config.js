@@ -4,18 +4,19 @@ var webpack = require('webpack');
 module.exports = {
     entry: [
         'babel-polyfill',
-        './src/main'
+        './src-client'
     ],
     output: {
+        path: path.resolve('./assets'),
         publicPath: '/',
-        filename: 'main.js'
+        filename: 'app.js'
     },
     devtool: 'source-map',
     module: {
         loaders: [
             {
                 test: /\.js$/,
-                include: path.join(__dirname, 'src'),
+                include: path.join(__dirname, 'src-client'),
                 loader: 'babel-loader',
                 query: {
                     presets: ["es2015"]
@@ -23,5 +24,8 @@ module.exports = {
             }
         ]
     },
-    debug: true
+    debug: true,
+    devServer: {
+        contentBase: "./assets"
+    }
 };
