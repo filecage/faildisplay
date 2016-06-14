@@ -29,8 +29,6 @@ export default class Socket extends EventEmitter {
     }
 
     _reconnect () {
-        console.log('close!');
-        console.log(this._connection);
         if (this._connection < this._maximumRetries) {
             this.emit('reconnect');
             setTimeout(() => {
