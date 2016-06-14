@@ -16,8 +16,14 @@ export default class Socket extends EventEmitter {
         this._reconnectDelay = opts.reconnectDelay || 500;
         this._maximumRetries = opts.maximumRetries || 10;
 
-        this._connect()
-            ._bindComponentEvents();
+        this._bindComponentEvents();
+    }
+
+    _emitMessageEvent (event) {
+        var message = JSON.parse(event.data);
+        var type = message.type;
+
+        this.emit('message', type, message, event);
     }
 
     _bindComponentEvents() {
@@ -32,7 +38,7 @@ export default class Socket extends EventEmitter {
         if (this._connection < this._maximumRetries) {
             this.emit('reconnect');
             setTimeout(() => {
-                this._connect();
+                this.connect();
             }, this._connection * this._reconnectDelay);
         } else {
             this.emit('reconnect-maximum-reached');
@@ -47,7 +53,7 @@ export default class Socket extends EventEmitter {
         return this;
     }
 
-    _connect () {
+    connect () {
         this._connection++;
         this._ws = this._bindWsEvents(new WebSocket(this._url));
 
@@ -56,9 +62,9 @@ export default class Socket extends EventEmitter {
 
     _bindWsEvents(ws) {
         ws.addEventListener('open', this.emit.bind(this, 'open'));
-        ws.addEventListener('message', this.emit.bind(this, 'message'));
         ws.addEventListener('close', this.emit.bind(this, 'close'));
         ws.addEventListener('error', this.emit.bind(this, 'error'));
+        ws.addEventListener('message', this._emitMessageEvent.bind(this));
 
         return ws;
     }
