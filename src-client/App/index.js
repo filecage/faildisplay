@@ -1,44 +1,33 @@
 import {EventEmitter} from 'events';
 import Service from '../Models/Service';
+import * as ServiceAction from '../Actions/services';
 
 export default class App extends EventEmitter {
-    constructor(socket) {
+    constructor(socket, store) {
         super();
 
         this._socket = socket;
         this._services = [];
+        this._store = store;
     }
     
     sync() {
         this._socket.on('message', (type, message) => {
             switch (type) {
                 case 'initialState':
-                    this._services = message.payload.map(service => Service.createFromObject(service));
-                    this.emit('update');
+                    this._store.dispatch(ServiceAction.replaceServices(message.payload.services.map(service => Service.createFromObject(service))));
                     break;
 
                 case 'update':
-                    var newService = message.payload.newService;
-                    this._services = this._services.map(service => {
-                        if (service.getId() !== newService.id) {
-                            return service;
-                        }
-
-                        return Service.createFromObject(newService);
-                    });
-                    this.emit('update');
+                    this._store.dispatch(ServiceAction.updateService(Service.createFromObject(message.payload.newService)));
                     break;
 
                 case 'insert':
-                    this._services.push(Service.createFromObject(message.payload));
-                    this.emit('update');
+                    this._store.dispatch(ServiceAction.insertService(Service.createFromObject(message.payload.newService)));
                     break;
 
                 case 'delete':
-                    this._services.filter(service => {
-                        return service.getId() !== message.payload.id;
-                    });
-                    this.emit('update');
+                    this._store.dispatch(ServiceAction.deleteService(message.payload.service.id));
                     break;
             }
         })
