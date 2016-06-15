@@ -21,17 +21,12 @@ export default class ServiceHierarchy {
         return richFlatMap;
     }
 
-    /**
-     * @param list {Object[]}
-     * @returns {Object.<string, Object>}
-     */
-    getServiceMapFlatIndexed (list) {
-        var index = {};
-        list.forEach(item => {
-            index[item.id] = item;
-        });
+    getSuperParents () {
+        var richFlatMap = this.getAll();
 
-        return index;
+        return Object.keys(richFlatMap)
+            .map(id => richFlatMap[id])
+            .filter(service => service.hasParent() === false);
     }
 
     /**
