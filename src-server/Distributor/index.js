@@ -21,7 +21,7 @@ module.exports = class Distributor extends EventEmitter {
     }
 
     _initialSync (connection) {
-        this._persistence.getInitialState(state => connection.send(this._packMessage('initialState', state)));
+        this._persistence.getInitialState(services => connection.send(this._packMessage('initialState', {services})));
 
         return this;
     }
@@ -38,11 +38,11 @@ module.exports = class Distributor extends EventEmitter {
     }
 
     _insert (newService) {
-        this._broadcast('insert', newService);
+        this._broadcast('insert', {newService});
     }
 
-    _delete (service) {
-        this._broadcast('delete', service);
+    _delete (newService, service) {
+        this._broadcast('delete', {service});
     }
 
     _broadcast (type, payload) {
