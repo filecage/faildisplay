@@ -29,8 +29,18 @@ export default class Service {
         return this._status;
     }
 
+    hasParent () {
+        return !!this._parent;
+    }
+
     getParent () {
         return this._parent;
+    }
+
+    setParent (parent) {
+        this._parent = parent;
+
+        return this;
     }
 
     getSubServices () {
