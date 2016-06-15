@@ -11,7 +11,7 @@ export default class ServiceHierarchy {
 
     }
     
-    getServiceListDeep () {
+    getAll () {
         var richFlatMap = {};
         this._list.forEach(item => {
             this._createServiceWithSubs(richFlatMap, item);
