@@ -13,8 +13,8 @@ export default class ServiceHierarchy {
     
     getAll () {
         var richFlatMap = {};
-        this._list.forEach(item => {
-            this._createServiceWithSubs(richFlatMap, item);
+        this._map.forEach(service => {
+            this._createServiceWithSubs(richFlatMap, service);
         });
 
         return Object.keys(richFlatMap).map(id => richFlatMap[id]).filter(service => service.hasParent() === false);
