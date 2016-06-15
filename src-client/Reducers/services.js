@@ -1,25 +1,25 @@
 import * as Service from '../Actions/services';
-import {List} from 'immutable';
+import {Map} from 'immutable';
+
+function indexServiceList (list) {
+    var map = {};
+    list.forEach(item => map[item.id] = item);
+
+    return map;
+}
 
 export default (state, action) => {
     switch (action.type) {
         case Service.REPLACE_SERVICES:
-            return List(action.services);
+            return Map(indexServiceList(action.services));
 
-        case Service.INSERT_SERVICE:
-            return state.push(action.service);
-        
         case Service.UPDATE_SERVICE:
-            return state.map(service => {
-                if (service.getId() !== action.service.getId()) {
-                    return service;
-                }
-                return action.service;
-            });
+        case Service.INSERT_SERVICE:
+            return state.set(action.service.id, action.service);
         
         case Service.DELETE_SERVICE:
-            return state.filter(service => service.getId() !== action.serviceId);
+            return state.delete(action.service.id);
     }
 
-    return state || List();
+    return state || Map();
 }
