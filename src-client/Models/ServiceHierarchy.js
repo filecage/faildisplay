@@ -2,13 +2,14 @@ import Service from './Service';
 
 export default class ServiceHierarchy {
     /**
-     * @param serviceList {Object[]}
+     * @param map {Map}
      */
-    constructor(serviceList = []) {
-        this._list = serviceList;
-        this._map = this.getServiceMapFlatIndexed(serviceList);
+    constructor(map) {
+        this._map = map;
     }
 
+    getBranch (id) {
+        return this.getAll()[id] || null;
     }
     
     getAll () {
@@ -42,7 +43,7 @@ export default class ServiceHierarchy {
         var service = richFlatMap[object.id] || Service.createFromObject(object, parent);
         if (Array.isArray(object.subServices)) {
             object.subServices.forEach(subServiceId => {
-                var subService = this._map[subServiceId] || null;
+                var subService = this._map.get(subServiceId) || null;
                 if (subService === null) {
                     return console.warn('service %s (id: %s) has invalid sub-service with id %s', service.getName(), service.getId(), subServiceId);
                 }
