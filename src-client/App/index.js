@@ -1,5 +1,4 @@
 import {EventEmitter} from 'events';
-import Service from '../Models/Service';
 import * as ServiceAction from '../Actions/services';
 
 export default class App extends EventEmitter {
@@ -14,19 +13,19 @@ export default class App extends EventEmitter {
         this._socket.on('message', (type, message) => {
             switch (type) {
                 case 'initialState':
-                    this._store.dispatch(ServiceAction.replaceServices(message.payload.services.map(service => Service.createFromObject(service))));
+                    this._store.dispatch(ServiceAction.replaceServices(message.payload.services));
                     break;
 
                 case 'update':
-                    this._store.dispatch(ServiceAction.updateService(Service.createFromObject(message.payload.newService)));
+                    this._store.dispatch(ServiceAction.updateService(message.payload.newService));
                     break;
 
                 case 'insert':
-                    this._store.dispatch(ServiceAction.insertService(Service.createFromObject(message.payload.newService)));
+                    this._store.dispatch(ServiceAction.insertService(message.payload.newService));
                     break;
 
                 case 'delete':
-                    this._store.dispatch(ServiceAction.deleteService(message.payload.service.id));
+                    this._store.dispatch(ServiceAction.deleteService(message.payload.service));
                     break;
             }
         })
