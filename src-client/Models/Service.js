@@ -6,12 +6,7 @@ export default class Service {
      * @returns {Service}
      */
     static createFromObject (object, parent = null) {
-        var service = new Service(object.id, object.name, object.status, parent);
-        if (Array.isArray(object.subServices)) {
-            object.subServices.forEach(subService => service.addSubService(Service.createFromObject(subService, service)));
-        }
-
-        return service;
+        return new Service(object.id, object.name, object.status, parent);
     }
 
     constructor (id, name, status, parent = null, subServices = []) {
