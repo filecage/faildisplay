@@ -7,7 +7,7 @@ import Reducers from './Reducers';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
-app.sync();
+
 let store = createStore(Reducers);
 let socket = new Socket('ws://localhost:3000');
 let app = new App(socket, store);
@@ -19,4 +19,5 @@ ReactDOM.render(
     document.getElementById('app')
 );
 
+app.sync();
 socket.connect();
