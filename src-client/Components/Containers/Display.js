@@ -1,12 +1,13 @@
 import {connect} from 'react-redux';
 import React from 'react';
 import Service from '../Service';
+import ServiceHierarchy from '../../Models/ServiceHierarchy';
 
 export class Display extends React.Component {
     render() {
         return (
             <ul>
-                {this.props.services.map(service => <Service service={service} key={service.getId()}/>)}
+                {this.props.services.getSuperParents().map(service => <Service service={service} key={service.getId()}/>)}
             </ul>
         );
     }
@@ -14,7 +15,7 @@ export class Display extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        services: state.services
+        services: new ServiceHierarchy(state.services)
     }
 }
 
