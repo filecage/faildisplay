@@ -17,7 +17,7 @@ export default class ServiceHierarchy {
             this._createServiceWithSubs(richFlatMap, service);
         });
 
-        return Object.keys(richFlatMap).map(id => richFlatMap[id]).filter(service => service.hasParent() === false);
+        return richFlatMap;
     }
 
     /**
