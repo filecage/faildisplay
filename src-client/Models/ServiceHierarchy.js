@@ -9,39 +9,6 @@ export default class ServiceHierarchy {
         this._map = this.getServiceMapFlatIndexed(serviceList);
     }
 
-    /**
-     * @param service
-     * @returns {ServiceHierarchy}
-     */
-    addService (service) {
-        this._list.push(service);
-        this._map[service.id] = service;
-
-        return this;
-    }
-
-    /**
-     * @param deletedService
-     * @returns {ServiceHierarchy}
-     */
-    deleteService (deletedService) {
-        this._list = this._list.filter(service => service.id !== deletedService.id);
-        delete this._map[deletedService.id];
-
-        return this;
-    }
-
-    updateService (newService, oldService) {
-        this._map[oldService.id] = newService;
-        this._list = this._list.map(service => {
-            if (service.id !== oldService.id) {
-                return service;
-            }
-
-            return newService;
-        });
-
-        return this;
     }
     
     getServiceListDeep () {
