@@ -7,7 +7,6 @@ export default class App extends EventEmitter {
         super();
 
         this._socket = socket;
-        this._services = [];
         this._store = store;
     }
     
@@ -31,9 +30,5 @@ export default class App extends EventEmitter {
                     break;
             }
         })
-    }
-
-    getServices () {
-        return this._services;
     }
 }
