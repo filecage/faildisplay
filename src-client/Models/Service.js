@@ -43,6 +43,10 @@ export default class Service {
     }
 
     addSubService (service) {
+        if (this._subServices.some(existingService => existingService.getId() === service.getId())) {
+            return this;
+        }
+        
         this._subServices.push(service);
 
         return this;
