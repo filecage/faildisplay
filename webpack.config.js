@@ -4,8 +4,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        'app': ['babel-polyfill', './src-client'],
-        'style': './src-client/style.less'
+        'js': ['babel-polyfill', './src-client'],
+        'css': './src-client/style.less'
     },
     output: {
         path: path.resolve('./assets/build'),
