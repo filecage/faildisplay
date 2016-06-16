@@ -7,7 +7,7 @@ import Reducers from './Reducers';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
-require('./style.less');
+require('./style');
 
 let store = createStore(Reducers);
 let socket = new Socket('ws://localhost:3000');
