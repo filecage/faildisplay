@@ -21,11 +21,18 @@ module.exports = {
                 query: {
                     presets: ["react", "es2015"]
                 }
+            },
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract("css!less")
             }
         ]
     },
     debug: true,
     devServer: {
         contentBase: "./assets"
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin('style.css')
+    ]
 };
