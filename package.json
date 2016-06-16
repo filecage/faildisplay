@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack-dev-server --inline --hot --port 8081",
+    "build": "webpack --config webpack.config.build.js",
+    "dev": "webpack-dev-server --inline --hot --port 8081 --config webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

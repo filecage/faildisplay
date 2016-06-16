@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -12,7 +11,6 @@ module.exports = {
         publicPath: '/build/',
         filename: 'app.js'
     },
-    devtool: 'source-map',
     module: {
         loaders: [
             {
@@ -22,18 +20,8 @@ module.exports = {
                 query: {
                     presets: ["react", "es2015"]
                 }
-            },
-            {
-                test: /\.less$/,
-                loader: ExtractTextPlugin.extract("css!less")
             }
         ]
     },
-    debug: true,
-    devServer: {
-        contentBase: "./assets"
-    },
-    plugins: [
-        new ExtractTextPlugin('style.css')
-    ]
+    plugins: []
 };
