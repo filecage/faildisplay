@@ -3,8 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'js': ['babel-polyfill', './src-client'],
-        'css': './src-client/style.less'
+        'js': ['babel-polyfill', './src-client']
     },
     output: {
         path: path.resolve('./assets/build'),
