@@ -8,8 +8,8 @@ module.exports = {
         './src-client'
     ],
     output: {
-        path: path.resolve('./assets'),
-        publicPath: '/',
+        path: path.resolve('./assets/build'),
+        publicPath: '/build/',
         filename: 'app.js'
     },
     devtool: 'source-map',
